@@ -566,6 +566,10 @@ WHERE price > 20000 AND discount_percent IS NULL
 -- Ticket #108
 
 -- Display the first five employees hired earliest.
+SELECT *
+FROM employees
+ORDER BY hire_date ASC
+LIMIT 5
 
 -- Ticket #109
 
@@ -574,6 +578,11 @@ WHERE price > 20000 AND discount_percent IS NULL
 -- a
 
 -- (case insensitive).
+
+SELECT *
+FROM customers
+WHERE first_name 
+LIKE '%a%'
 
 -- Ticket #110 (Boss Challenge ⭐⭐⭐)
 
@@ -587,6 +596,21 @@ WHERE price > 20000 AND discount_percent IS NULL
 -- category
 -- price
 -- discount_percent
+
+
+SELECT product_name,
+       category,
+       price,
+       discount_percent
+FROM products
+WHERE category IN ('Electronics', 'Furniture')
+  AND price BETWEEN 20000 AND 900000
+  AND discount_percent IS NOT NULL
+ORDER BY discount_percent DESC,
+         price ASC
+LIMIT 5;
+
+
 -- 🏆 Bonus Challenge (Combines Everything)
 
 -- Without looking at your notes, write one query that satisfies all these conditions:
@@ -604,3 +628,16 @@ WHERE price > 20000 AND discount_percent IS NULL
 -- discount_percent descending
 -- price ascending
 -- Return only 3 rows
+
+SELECT product_name,
+       category,
+       price,
+       discount_percent AS discount
+FROM products
+WHERE category IN ('Electronics', 'Furniture')
+  AND price BETWEEN 10000 AND 900000
+  AND discount_percent IS NOT NULL
+  AND product_name ILIKE '%o%'
+ORDER BY discount_percent DESC,
+         price ASC
+LIMIT 3;
