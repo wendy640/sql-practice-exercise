@@ -196,4 +196,123 @@ FROM employees
 -- Total Employees
 -- Total Products
 
--- (Hint: This one is a little tricky with your current tables—you'll need separate queries or think about how to combine results later when you learn more advanced SQL.)
+
+-- Group BY clause
+
+-- 🟢 Exercise 1 – Product Category Summary (Easy)
+
+-- The warehouse manager wants to know how many products belong to each category.
+
+-- Requirements
+
+-- Return:
+
+-- category
+-- Total number of products
+
+-- Sort the results by the category name (A–Z).
+
+-- Expected columns
+
+-- category	total_products
+
+-- Concepts: COUNT(), GROUP BY, ORDER BY
+
+SELECT category,
+       COUNT(*) AS total_products
+FROM products
+GROUP BY category
+ORDER BY category ASC;
+
+-- 🟡 Exercise 2 – Department Salary Report (Medium)
+
+-- HR wants a report showing the total salary paid in each department.
+
+-- Requirements
+
+-- Return:
+
+-- department
+-- Total salary expense
+
+-- Sort the report from the department with the highest total salary to the lowest.
+
+-- Expected columns
+
+-- department	total_salary
+
+-- Concepts: SUM(), GROUP BY, ORDER BY DESC
+
+SELECT department,
+       SUM(salary) AS total_salary
+FROM employees
+GROUP BY department
+ORDER BY total_salary DESC;
+
+-- 🔴 Exercise 3 – Multiple Column GROUP BY (Challenge)
+
+-- Management wants to know how many customers registered in each city on each registration date.
+
+-- Requirements
+
+-- Return:
+
+-- city
+-- created_at
+-- Number of customers
+
+-- Group by both city and created_at.
+
+-- Sort by:
+
+-- city (A–Z)
+-- created_at (Oldest first)
+
+-- Expected columns
+
+-- city	created_at	total_customers
+
+-- Concepts: COUNT(), GROUP BY (multiple columns), ORDER BY
+
+SELECT city,
+       created_at,
+       COUNT(*) AS total_customers
+FROM customers
+GROUP BY city, created_at
+ORDER BY city ASC, created_at ASC;
+
+-- 🏆 Bonus Challenge (Optional)
+
+-- After you've solved the three above, try this one without looking at your notes:
+
+-- Generate a report showing:
+
+-- Product category
+-- Number of products
+-- Total stock quantity
+-- Average product price (rounded to 2 decimal places)
+-- Cheapest product
+-- Most expensive product
+
+-- Sort the report by average price (highest first).
+
+-- This combines almost everything you've learned over the last two days:
+
+-- GROUP BY
+-- COUNT()
+-- SUM()
+-- AVG()
+-- ROUND()
+-- MIN()
+-- MAX()
+-- ORDER BY
+
+SELECT category AS Product_category,
+COUNT(*) AS Number_of_products,
+SUM(stock_quantity) AS Total_stock_quantity,
+ROUND(AVG(price),2) AS Average_product_price,
+MIN(price) AS Cheapest_product,
+MAX(price) AS Most_expensive_product
+FROM products
+GROUP BY category
+ORDER BY Average_product_price DESC
