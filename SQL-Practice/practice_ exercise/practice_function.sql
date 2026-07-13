@@ -316,3 +316,135 @@ MAX(price) AS Most_expensive_product
 FROM products
 GROUP BY category
 ORDER BY Average_product_price DESC
+
+-- 💻 Day 12 Practical SQL Challenges
+
+
+
+-- 🟢 Exercise 1 — HAVING (Easy)
+-- 🎫 Support Ticket #301
+
+-- The warehouse manager wants to know which product categories contain more than 2 products.
+
+-- Requirements
+
+-- Return:
+
+-- category
+-- COUNT(*) AS total_products
+
+-- Only display categories that have more than 2 products.
+
+-- Sort by the number of products (highest first).
+
+SELECT category, COUNT(*) AS total_products
+FROM products
+GROUP BY category
+HAVING COUNT(*) > 2
+ORDER BY total_products DESC
+
+
+-- 🟡 Exercise 2 — WHERE vs HAVING (Medium)
+-- 🎫 Support Ticket #302
+
+-- Management only wants to analyze Electronics and Furniture products.
+
+-- Generate a report showing:
+
+-- category
+-- Average product price
+
+-- Requirements:
+
+-- Only include Electronics and Furniture (WHERE)
+-- Only display categories whose average price is greater than ₦100,000 (HAVING)
+-- Round the average price to 2 decimal places
+-- Sort by average price descending
+
+-- 💡 This exercise is designed to help you understand when to use WHERE versus HAVING.
+
+SELECT category, ROUND(AVG(price), 2) AS Average_product_price
+FROM products
+WHERE category IN('Electronics','Furniture') 
+GROUP BY category
+HAVING ROUND(AVG(price), 2) > 100000
+ORDER BY Average_product_price DESC
+
+
+-- 🔴 Exercise 3 — CASE + GROUP BY (Challenge)
+-- 🎫 Support Ticket #303
+
+-- The Finance team wants products grouped by price range instead of exact prices.
+
+-- Create these price groups:
+
+-- Budget → price less than ₦20,000
+-- Mid-range → price between ₦20,000 and ₦100,000
+-- Premium → price above ₦100,000
+
+-- Generate a report showing:
+
+-- Price Range
+-- Number of Products
+-- Average Price (rounded to 2 decimals)
+
+-- Sort the report from the highest average price to the lowest.
+
+-- 💡 Hint: Use CASE ... END AS price_range and group by the CASE expression.
+
+SELECT 
+CASE 
+WHEN price < 20000 THEN 'Budget'
+WHEN price BETWEEN 20000 AND 100000 THEN 'Mid_Range'
+ELSE 'Premium'
+END AS Price_Range,
+
+COUNT(*) AS Number_of_Products,
+ROUND(AVG(price),2) AS Average_Price
+FROM products
+
+GROUP BY 
+CASE 
+WHEN price < 20000 THEN 'Budget'
+WHEN price BETWEEN 20000 AND 100000 THEN 'Mid_Range'
+ELSE 'Premium'
+END 
+
+ORDER BY Price_Range DESC
+
+-- 🏆 Bonus Challenge ⭐⭐⭐
+
+-- Without looking at your notes, write one query that returns:
+
+-- Product Category
+-- Number of Products
+-- Average Price
+-- Highest Price
+-- Lowest Price
+
+-- Requirements:
+
+-- Only include categories where:
+-- Average price is greater than ₦50,000
+-- AND there are at least 2 products
+-- Sort by average price descending.
+
+-- This combines:
+
+-- WHERE
+-- GROUP BY
+-- HAVING
+-- COUNT()
+-- AVG()
+-- MIN()
+-- MAX()
+-- ORDER BY
+select category as Product_Category, 
+count(*) as Number_of_Products,
+round(avg(price),0) as Average_Price,
+max(price) as Highest_Price,
+min(price) as Lowest_Price
+from products
+group by category
+having avg(price) > 50000 and count(*) >=2
+order by Average_Price desc
