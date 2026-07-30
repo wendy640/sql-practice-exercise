@@ -118,7 +118,9 @@ order by product_name asc
 -- discount_percent
 
 -- Only show products with no discount.
-
+select product_name,category,discount_percent
+from products
+where discount_percent is null
 -- Exercise 9 — ORDER BY + NULLS LAST
 
 -- Display:
@@ -132,6 +134,9 @@ order by product_name asc
 -- Lowest discount first
 -- NULL values last
 -- If discounts are equal, sort by product name
+select product_name,category,discount_percent
+from products
+order by discount_percent asc, discount_percent nulls last,product_name asc
 -- Exercise 10 — LIMIT & OFFSET
 
 -- Display the first 5 customers ordered by the date they joined.
@@ -141,6 +146,10 @@ order by product_name asc
 -- first_name
 -- last_name
 -- created_at
+select first_name,last_name,created_at
+from customers 
+order by created_at asc
+limit 5
 -- Exercise 11 — COUNT()
 
 -- How many products are currently in the database?
@@ -148,6 +157,7 @@ order by product_name asc
 -- Return the answer as:
 
 -- total_products
+select count(*) as total_products from products
 -- Exercise 12 — COUNT(DISTINCT)
 
 -- How many unique product categories exist?
@@ -155,6 +165,7 @@ order by product_name asc
 -- Return:
 
 -- total_categories
+select count(distinct category) as total_categories from products
 -- Exercise 13 — SUM()
 
 -- The warehouse manager wants to know the total inventory available.
@@ -162,18 +173,20 @@ order by product_name asc
 -- Return:
 
 -- total_stock
+select sum(stock_quantity) as total_stock from products
 -- Exercise 14 — AVG()
 
 -- What is the average product price?
 
 -- Round the result to 2 decimal places.
-
+select round(avg(price),2) as average_product_price from products
 -- Exercise 15 — MIN() & MAX()
 
 -- Return:
 
 -- Cheapest product price
 -- Most expensive product price
+select min(price) as Cheapest_product_price,max(price) as Most_expensive_product_price from products
 -- Exercise 16 — Multiple Aggregate Functions
 
 -- Generate a company inventory summary.
@@ -185,6 +198,13 @@ order by product_name asc
 -- Average Price
 -- Cheapest Price
 -- Highest Price
+select 
+count(*) as Total_Products,
+sum(stock_quantity) as Total_Stock,
+round(avg(price),2) as Average_Price,
+min(price) as Cheapest_Price,
+max(price) as Highest_Price
+from products 
 -- Exercise 17 — GROUP BY
 
 -- For each product category, display:
@@ -194,6 +214,11 @@ order by product_name asc
 
 -- Sort by number of products (highest first).
 
+
+select category as Category, count(*) as Number_of_Products
+from products 
+group by category
+order by Number_of_Products desc
 -- Exercise 18 — GROUP BY Multiple Columns
 
 -- For each city and registration date, display:
@@ -206,6 +231,13 @@ order by product_name asc
 
 -- City
 -- Date
+SELECT
+    city AS City,
+    created_at AS Created_Date,
+    COUNT(*) AS Number_of_Customers
+FROM customers
+GROUP BY city, created_at
+ORDER BY city ASC, created_at ASC;
 -- Exercise 19 — HAVING
 
 -- Management only wants categories that contain at least 2 products.
@@ -216,7 +248,11 @@ order by product_name asc
 -- Number of Products
 
 -- Sort by number of products descending.
-
+select category as Category,count(category) as Number_of_Products
+from products
+group by category
+having count(category) >= 2
+order by Number_of_Products desc
 -- Exercise 20 — WHERE + HAVING
 
 -- Generate a report showing:
@@ -231,6 +267,12 @@ order by product_name asc
 
 -- Round to two decimal places.
 
+select category as Category,round(avg(price),2) as Average_Price
+from products
+where category in('Electronics','Furniture')
+group by category
+having round(avg(price),2) > 100000
+order by category asc
 -- Exercise 21 — CASE
 
 -- Create salary bands.
@@ -247,7 +289,21 @@ order by product_name asc
 -- Above ₦90,000 → High
 
 -- Sort by employee count descending.
-
+select 
+case 
+when salary < 70000 then 'Low'
+when salary between 70000 and 90000 then 'Medium'
+else 'High'
+end as Salary_Band,
+count(*) as Number_of_Employees
+from employees
+group by 
+case 
+when salary < 70000 then 'Low'
+when salary between 70000 and 90000 then 'Medium'
+else 'High'
+end 
+order by Number_of_Employees desc
 -- Exercise 22 — CASE + Aggregates
 
 -- Create stock levels.
@@ -293,4 +349,4 @@ order by product_name asc
 -- MIN
 -- MAX
 -- ROUND
--- ORDER BY
+-- ORDER BY.
