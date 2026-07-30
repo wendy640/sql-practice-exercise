@@ -360,3 +360,13 @@ group by 1
 -- MAX
 -- ROUND
 -- ORDER BY.
+select 
+category as Category,
+count(*) Number_of_Products,
+round(avg(price),2) as Average_Price,
+max(price) as  Highest_Price,
+min(price) as Lowest_Price
+from products
+group by category 
+having count(*) >= 2 and avg(price) > 50000
+order by Average_Price desc
