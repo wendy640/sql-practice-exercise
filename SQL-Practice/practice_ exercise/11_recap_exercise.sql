@@ -319,6 +319,16 @@ order by Number_of_Employees desc
 -- Below 15 → Low Stock
 -- 15–50 → Medium Stock
 -- Above 50 → High Stock
+select 
+case 
+when stock_quantity < 15 then 'Low_Stock'
+when stock_quantity between 15 and 50 then 'Medium_Stock'
+else 'High_Stock'
+end as Stock_Level,
+count(*) as Number_of_Products,
+sum(stock_quantity) as Total_Stock
+from products
+group by 1
 -- 🏆 Final Boss Challenge
 
 -- Without looking at your notes...
