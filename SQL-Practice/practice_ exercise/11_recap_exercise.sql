@@ -369,4 +369,4 @@ min(price) as Lowest_Price
 from products
 group by category 
 having count(*) >= 2 and avg(price) > 50000
-order by Average_Price desc
+order by Average_Price desc 
