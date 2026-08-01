@@ -370,3 +370,29 @@ from products
 group by category 
 having count(*) >= 2 and avg(price) > 50000
 order by Average_Price desc 
+
+-- 🏆 Boss Challenge ⭐⭐⭐
+
+-- The CTO wants a staffing report.
+
+-- Display:
+
+-- Department Name
+-- Project Name
+-- Employee Name
+-- Role
+
+-- Requirements:
+
+-- Use all four tables.
+-- Rename the columns as:
+-- Department
+-- Project
+-- Employee
+-- Role
+-- Sort by:
+-- Department
+-- Project
+-- Role
+-- Employee
+
