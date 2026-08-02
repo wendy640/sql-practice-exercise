@@ -165,7 +165,17 @@ order by budget desc
 -- projects
 
 -- Sort by budget descending.
-
+select company_employees.employee_name as employee_name,
+company_projects.project_name as project_name,
+company_projects.budget as budget,
+company_assignments.role as role
+from company_employees
+inner join company_assignments on 
+company_employees.employee_id = company_assignments.employee_id
+inner join company_projects on 
+company_assignments.project_id = company_projects.project_id
+where company_projects.budget > 1000000
+order by budget desc
 -- 🎫 Ticket #408 — Employee Count Per Department
 
 -- The HR Director wants to know how many employees each department has.
@@ -189,6 +199,13 @@ order by budget desc
 -- GROUP BY
 
 -- Sort by total_employees descending.
+select company_departments.department_name as department_name,
+count(*) as total_employees
+from company_employees
+inner join company_departments on 
+company_employees.department_id = company_departments.department_id
+group by company_departments.department_name
+order by total_employees desc
 
 -- 🎫 Ticket #409 — Number of Employees Per Project ⭐⭐
 
