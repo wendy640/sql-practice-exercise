@@ -59,6 +59,15 @@ ORDER BY budget DESC;
 
 -- project_name
 -- employee_name
+select company_employees.employee_name as employee_name,
+company_projects.project_name as project_name,
+company_assignments.role as role
+from company_employees
+inner join company_assignments on
+company_employees.employee_id = company_assignments.employee_id
+inner join company_projects
+on company_assignments.project_id = company_projects.project_id
+order by company_projects.project_name,company_employees.employee_name
 -- 🎫 Ticket #404 — Department Workload
 
 -- Management wants a report showing every project together with the department responsible.
@@ -73,6 +82,13 @@ ORDER BY budget DESC;
 
 -- department_name
 -- project_name
+select company_departments.department_name as department_name,
+company_projects.project_name as project_name,
+company_projects.budget as budget
+from company_departments
+inner join company_projects on
+company_departments.department_id = company_projects.department_id
+order by company_departments.department_name,company_projects.project_name
 -- 🎫 Ticket #405 — Project Team Report ⭐
 
 -- Create a report showing
@@ -93,7 +109,18 @@ ORDER BY budget DESC;
 -- employee_name
 
 -- This is almost identical to what you'll write in an Application Support job.
-
+select company_projects.project_name as project_name,
+company_employees.employee_name  as employee_name,
+company_assignments.role as role,
+company_departments.department_name as department_name
+from company_employees
+inner join company_departments on 
+company_employees.department_id = company_departments.department_id
+inner join company_assignments on 
+company_employees.employee_id = company_assignments.employee_id
+inner join company_projects on 
+company_assignments.project_id = company_projects.project_id
+order by department_name,project_name,employee_name 
 -- 🎫 Ticket #406 — Find Only IT Projects
 
 -- The IT Director only wants projects owned by the IT department.
@@ -110,7 +137,14 @@ ORDER BY budget DESC;
 -- WHERE department_name = 'IT'
 
 -- Sort by budget descending.
-
+select company_projects.project_name as project_name,
+company_projects.budget as budget,
+company_departments.department_name as department_name
+from company_projects
+inner join company_departments on
+ company_projects.department_id = company_departments.department_id 
+where department_name = 'IT Support'
+order by budget desc
 -- 🎫 Ticket #407 — Employees Working on High Budget Projects
 
 -- Management wants employees assigned to projects whose budget exceeds ₦1,000,000.
