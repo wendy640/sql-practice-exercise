@@ -229,6 +229,14 @@ order by total_employees desc
 
 -- team_size DESC
 -- project_name
+
+select company_projects.project_name as project_name,
+count(*) as  team_size
+from company_projects
+inner join company_assignments on 
+company_projects.project_id = company_assignments.project_id 
+group by company_projects.project_name
+order by company_projects.project_name desc,team_size asc
 -- 🏆 Final Boss Challenge — Company Dashboard
 
 -- Without looking at your notes...
