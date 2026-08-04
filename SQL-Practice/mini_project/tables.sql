@@ -110,3 +110,17 @@ VALUES
 (8,5,'Performance Issue','Medium','Closed'),
 (2,2,'Password Reset','Low','Closed');
 
+ALTER TABLE company_employees
+ADD COLUMN manager_id INT;
+
+UPDATE company_employees
+SET manager_id = 1
+WHERE employee_id IN (2,3);
+
+UPDATE company_employees
+SET manager_id = 2
+WHERE employee_id IN (4,5);
+
+UPDATE company_employees
+SET manager_id = NULL
+WHERE employee_id = 1;
