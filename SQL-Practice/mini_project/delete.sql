@@ -20,7 +20,6 @@
 
 -- Delete every record created today.
 
-
 delete from company_audit_logs
 where names = 'Bob'
 
