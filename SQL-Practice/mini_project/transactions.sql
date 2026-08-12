@@ -79,3 +79,31 @@ ROLLBACK;
 SELECT *
 FROM transaction_employees
 ORDER BY employee_id;
+
+BEGIN;
+
+UPDATE transaction_employees
+SET salary = salary * 1.10
+where employee_name = 'Diana';
+
+SELECT *
+FROM transaction_employees
+ORDER BY employee_id;
+
+SAVEPOINT diana_salary;
+
+UPDATE transaction_employees
+SET department_id = 1
+where employee_name = 'Diana';
+
+SELECT *
+FROM transaction_employees
+ORDER BY employee_id;
+
+ROLLBACK TO SAVEPOINT diana_salary;
+
+SELECT *
+FROM transaction_employees
+ORDER BY employee_id;
+
+COMMIT;
