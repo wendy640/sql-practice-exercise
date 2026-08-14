@@ -52,6 +52,7 @@
 -- Be converted to uppercase.
 
 
+
 select employee_name,upper(employee_name) as uppercase_name
 from company_employees
 
