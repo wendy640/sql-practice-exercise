@@ -156,4 +156,4 @@ from employees
 
 select
 lpad(employee_id::text, 5, '0') as formatted_id
-from employees
+from employees 
