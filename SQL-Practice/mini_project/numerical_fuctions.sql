@@ -31,3 +31,37 @@
 -- Exercise 4
 
 -- Display each employee's employee_id and determine whether the ID is even or odd using MOD().
+
+select employee_name,upper(employee_name) as uppercase_name
+from company_employees
+
+select employee_name,lower(employee_name) as lowercase_name,length(employee_name) as name_length
+from company_employees
+
+select employee_name, 
+round(salary, 2) 
+from company_employees
+
+select employee_name,
+floor(salary) 
+from company_employees
+
+select employee_name,
+ceil(salary) 
+from company_employees
+
+select employee_name,
+abs(salary - 100000) as salary_difference
+from company_employees
+
+select employee_name,
+power(salary) 
+from company_employees
+
+select employee_name,
+sqrt(salary) 
+from company_employees
+
+
+
+
