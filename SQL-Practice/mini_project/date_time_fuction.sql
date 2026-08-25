@@ -52,6 +52,7 @@
 
 -- INTERVAL
 
+
 select first_name,
 last_name,
 extract( year from hire_date) as hire_year
