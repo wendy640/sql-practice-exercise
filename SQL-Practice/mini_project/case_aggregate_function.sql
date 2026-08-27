@@ -132,3 +132,18 @@ when salary > 100000 then salary else 0 end
 ) as high_salary_total
 from company_employees
 group by department_id
+
+select department_id,
+count(*) as total_employees,
+sum(salary) as total_salary,
+count(
+case 
+when salary > 100000 then 1 end
+) as high_salary_employees,
+
+sum(
+case 
+when salary > 100000 then salary else 0 end
+) as high_salary_total
+from company_employees
+group by department_id
