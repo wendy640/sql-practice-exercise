@@ -29,3 +29,16 @@
 -- The employee's email if available
 -- Otherwise their phone number
 -- Otherwise 'No contact information'
+
+select employee_name,
+email,
+coalesce(email,'No email provided') as contact_email
+from company_employees
+
+select employee_name,
+email,
+phone_contact as phone_number,
+coalesce(
+email,phone_contact,'No contact information'
+) as contact_info
+from company_employees
