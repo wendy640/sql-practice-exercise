@@ -30,6 +30,7 @@
 -- Otherwise their phone number
 -- Otherwise 'No contact information'
 
+
 select employee_name,
 email,
 coalesce(email,'No email provided') as contact_email
