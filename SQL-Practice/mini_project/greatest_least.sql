@@ -18,6 +18,8 @@
 
 -- Where maximum_salary should ensure that no employee's displayed salary is above 90,000.
 
+
+
 select employee_name,
 salary,
 greatest(salary,80000) as minimum_salary
