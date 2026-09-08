@@ -19,3 +19,31 @@
 -- Exercise 5 — Higher Than Alice
 
 -- Find all employees whose salary is greater than Alice's salary.
+
+
+select employee_name,salary
+from company_employees
+where salary > (
+select AVG(salary)
+from company_employees
+)
+
+select employee_name
+from company_employees
+where salary = (
+select max(salary)
+from company_employees
+)
+
+select employee_name
+from company_employees
+where salary < (
+select avg(salary)
+from company_employees
+)
+select employee_name,department_id
+from company_employees
+where department_id=(select department_id
+from company_employees
+where employee_name = 'Alice' )
+
