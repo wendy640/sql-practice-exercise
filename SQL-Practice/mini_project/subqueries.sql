@@ -19,7 +19,9 @@
 -- Exercise 5 — Higher Than Alice
 
 -- Find all employees whose salary is greater than Alice's salary.
+-- Find employees whose salary is higher than the average salary of employees in department 2.
 
+-- This one combines a subquery with a specific condition:
 
 select employee_name,salary
 from company_employees
@@ -55,3 +57,9 @@ where salary > (select salary
 from company_employees
 where employee_name = 'Alice')
 
+select employee_name,department_id,salary
+from company_employees
+where  salary > (
+select avg(salary) 
+from company_employees
+where department_id =2)
