@@ -28,3 +28,20 @@ select department_id
 from company_employees
 where employee_name in ('Alice', 'Emma')
 )
+
+select employee_name,department_id
+from company_employees
+where department_id in (
+select department_id
+from company_employees
+where salary > 90000
+)
+
+select employee_name,department_id,salary
+from company_employees
+where department_id in (
+select department_id
+from company_employees
+where employee_name in ('Alice', 'Emma','Bob')
+)
+
